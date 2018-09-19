@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../libs/angular.min.js"></script>
+</head>
+<body ng-app="app">
+  <div ng-controller="ctrl">
+   <p>显示字符串：{{str}}</p>
+   <p>显示数字{{num}}</p>
+   <p>显示数组：{{arr}}</p>
+   <p>显示数组的第一个元素：{{arr[0]}}</p>
+   <p>显示对象中key为name的值：{{obj.name}}</p>
+  </div>
+</body>
+<script>
+//定义模块，定义控制器
+var app = angular.module('app',[]);
+app.controller('ctrl',['$scope',function($scope){
+    $scope.str = '哈哈哈';
+    $scope.num = 18;
+    $scope.arr = ['a','b','c'];
+    $scope.obj = {a:1,b:2,c:3,name:'key'};
+}]);
+
+</script>
+</html>
