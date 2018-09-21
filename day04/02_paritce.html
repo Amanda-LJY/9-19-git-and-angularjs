@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+  <script src='../libs/angular.min.js'></script>
+  <style>
+  img{width: 200px;}
+  .bgc{
+    background-color: brown;
+  }
+  </style>
+</head>
+<body ng-app='app'>
+  <div ng-controller='ctrl'>
+    <!-- 1.设置3个多选框，默认选择第二个 -->
+    <input type="checkbox" name='hobby' value="1" ng-checked="likes=='2'">游戏
+    <input type="checkbox" name='hobby' value="2" ng-checked="likes=='2'">电影
+    <input type="checkbox" name='hobby' value="3" ng-checked="likes=='2'">旅游
+    <!-- 2.使用ng-src引用一张图片，路径通过模型层获取 -->
+    <img ng-src="{{path}}" alt="">
+    <!-- 3.使用ng-switch实现效果
+  选择html ，下方以列表显示：css初级。css中级，css高级
+  选择js， -->
+      <select ng-model="val">
+        <option value="1">html</option>
+        <option value="2">css</option>
+        <option value="3">js</option>
+      </select>
+      <div ng-switch='val'>
+        <ul ng-switch-when='1'>
+          <li>html初级</li>
+          <li>html中级</li>
+          <li>html高级</li>
+        </ul>
+        <ul ng-switch-when='2'>
+            <li>css初级</li>
+            <li>css中级</li>
+            <li>css高级</li>
+          </ul>
+          <ul ng-switch-when='3'>
+              <li>js初级</li>
+              <li>js中级</li>
+              <li>js高级</li>
+          </ul>
+      </div>
+  <!-- 在模型层绑定数据：num，str，obj，arr，color,显示num，str，obj，arr的值
+    遍历arr的所有元素，同时给第二个元素添加背景色
+    隐藏第三个元素 -->
+    <p ng-bind='num'></p>
+    <p ng-bind='str'></p>
+    <p ng-bind='obj'></p>
+    <p ng-bind='arr'></p>
+    <ul>
+    <li ng-repeat='val in arr'>
+        <div ng-class="{bgc:$index==1}" ng-hide='$index==2'>{{val}}</div> 
+    </li>
+  </ul>
+  </div>
+</body>
+<script>
+  var app = angular.module('app', []);
+  app.controller('ctrl',['$scope',function($scope){
+    $scope.likes ='2';
+    $scope.path='../img/8.jpg';
+    $scope.num = 18;
+    $scope.str = '举杯邀明月';
+    $scope.obj ={a:1,b:2,c:3};
+    $scope.color = 'pink';
+    $scope.arr = ['A','B','C','D'];
+    
+  }]);
+</script>
+</html>

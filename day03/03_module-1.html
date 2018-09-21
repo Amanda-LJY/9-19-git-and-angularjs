@@ -2,42 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=3, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <script src="../libs/angular.min.js"></script>
 </head>
 <body ng-app='app'>
-  <div ng-controller="ctrl">
-    文章标题：{{title}}<br>
-    文章作者：{{author}}<br>
-    文章内容：{{content}}
-    1.{{word.propose}}<br>
-    2.{{word.chao}}<br>
-    3.{{word.titanic}}
+  <div ng-controller='ctrl'>
+  {{author}},{{num}},{{arr}}
+  {{article.title}}
   </div>
-  
 </body>
 <script>
-//创建模块
-/*
-第一个参数：字符串，为ng-app定义的模块的名称
-第二个参数：数组，元素为字符串，表示模块依赖的对象
-*/
 var app = angular.module('app',[]);
-
-//创建控制器
-/*
-第一个参数：字符串，表示该控制器的名称
-第二个参数：数组，数组中前面的元素为字符串，表示该控制器依赖的模块
-最后一个元素为function，表示该控制器的功能
-*/
 app.controller('ctrl',['$scope',function($scope){
-  $scope.author="青年文摘";
-  $scope.title="胡适与现代诗";
-  $scope.content="醉过才知酒浓，爱过才知情重。你不做我的诗，正如我不能做你的梦";
-  var infor = {propose:'提议',chao:'废墟',titanic:'巨大的'}
-  $scope.word = infor;
-}])
+  $scope.author = "Amanda";
+  $scope.num = 18;
+  $scope.arr = [1,2,3];
+  var data = {title:'微国学',content:'说家风,天地宽'};
+  $scope.article = data;
+}]);
+
 </script>
 </html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+  <script src='../libs/angular.min.js'></script>
+</head>
+<body ng-app='app'>
+  <input type="text" ng-model='val'><br>
+  {{val | uppercase}}<br>
+  {{val | lowercase}}
+<div ng-controller="ctrl">
+   <ul> 
+      <li> 
+        截取后五位：{{str | limitTo:-5 | uppercase}}
+      </li>
+      <li>
+       <input type="text" ng-model='num'><br>
+       {{num | number:1}}
+      </li>
+      <li>
+        {{time | date:"yyyy年MM月dd日 HH时mm分"}}
+      </li>
+      <li>
+          按照id升序：{{obj | orderBy:'id'}}<br>
+          按照age降序，相同时，按照id升序：{{obj | orderBy:['-age','+id']}}<br>
+          
+      </li>
+      <li>
+          显示数组中名字含有a的：{{obj | filter:{name:'a'} }}
+      </li>
+    </ul>
+</div>
+</body>
+<script>
+  var app = angular.module('app', []);
+  app.controller('ctrl',['$scope',function($scope){
+      $scope.str = "sfhasjhsij";
+      $scope.num = 1234.2435;
+      $scope.time = new Date();
+      $scope.obj = [
+        {id:101,name:'Mike',age:22,grade:'a'},
+        {id:103,name:'Jack',age:22,grade:'c'},
+        {id:105,name:'Rose',age:24,grade:'c'},
+        {id:102,name:'Allen',age:24,grade:'d'},
+        {id:104,name:'Lily',age:22,grade:'b'}
+      ]
+  }])
+</script>
+</html>
