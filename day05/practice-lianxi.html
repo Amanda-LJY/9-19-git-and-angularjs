@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+  <script src='../libs/angular.min.js'></script>
+</head>
+<body ng-app='app'>
+  <!-- 要注意两个点：在内容有所改变触发某个事件，处理数据，要ng-change和ng-model一起使用，并且添加事件，要用$scope.函数名=匿名函数 -->
+  <div ng-controller="ctrl">
+    <input type="text" ng-model='input1' ng-change= "change()"> + 
+    <input type="text" ng-model='input2' ng-change= "change()"> = {{result}}
+  </div>
+</body>
+<script>
+  var app = angular.module('app', []);
+  app.controller('ctrl',["$scope",function($scope){
+    $scope.change = function(){
+      var a = $scope.input1;
+      var b = $scope.input2;
+      if(isNaN(a)){
+        $scope.input1 = "";
+      }
+      if(isNaN(b)){
+        $scope.input2 = ""
+      }//为什么要用undefined和"",也要判断
+     $scope.result = parseInt($scope.input1  ||0) +parseInt($scope.input2 || 0);//为什么是0，不是"",明明我看到的就是空的字符串
+    }
+
+  }])
+</script>
+</html>

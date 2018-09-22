@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+  <script src='../libs/angular.min.js'></script>
+</head>
+<body ng-app='app'>
+  <ul ng-controller='ctrl'>
+    <li>
+      <input type="text" ng-model="val"><br>
+      {{val | uppercase}}<br>
+      {{val | lowercase}}
+    </li>
+    <li>
+      {{'abcdefg' | limitTo:-5 | uppercase}}
+    </li>
+    <li>
+      <input type="text" ng-model='num'><br>
+      {{num | number:1}}
+    </li>
+    <li>
+      {{time | date:'yyyy年MM月dd日HH时mm分'}}
+    </li>
+    <br>
+    <br>
+    <br>
+    <li ng-repeat="x in obj | orderBy:'id'">
+      {{x}}
+    </li>
+    <br>
+    <br>
+    <br>
+    <li ng-repeat="x in obj | orderBy:'id':true">
+      {{x}}
+    </li>
+    <br>
+    <br>
+    <br>
+    <li ng-repeat="x in obj | orderBy:['-age','+id']">
+      {{x}}
+    </li>
+    <br>
+    <br>
+    <br>
+    <li ng-repeat="x in obj | filter:{name:'a'}">
+      {{x}}
+    </li>
+</ul>
+</body>
+<script>
+  var app = angular.module('app', []);
+  app.controller('ctrl',['$scope',function($scope){
+    $scope.time = new Date();
+    $scope.obj= [
+      {id:101,name:"Mike",age:22},
+      {id:103,name:"Jack",age:22},
+      {id:105,name:"Rose",age:24},
+      {id:102,name:"Allen",age:24},
+      {id:104,name:"Lily",age:22}
+    ]
+  }])
+</script>
+</html>

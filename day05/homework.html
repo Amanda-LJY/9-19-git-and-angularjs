@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+  <script src='../libs/angular.min.js'></script>
+</head>
+<body ng-app='app'>
+  <!-- 自定义过滤器
+    输入数据,格式化为-链接的形式
+    输入字符串,下方同时显示大小写翻转的字符串
+      a   ab   abC   abCd
+      A   AB   ABc   ABcD  -->
+    <div>
+        <input type="text" ng-model='val'><br>
+        {{val | connect}}
+    </div>
+    <div>
+      <input type="text" ng-model='val2'><br>
+      {{val2 | overturn}}
+    </div>
+</body>
+<script>
+  var app = angular.module('app', []);
+  app.filter('connect',function(){
+    return function(str){
+      var arr = str.split("");
+        return arr.join("-");
+    }
+  })
+  app.filter('overturn',function(){
+    return function(str){
+      var arr = str.split();
+    for(var i=0;i<arr.length;i++){
+
+    if(/[A-Z]/.test(arr[i])){
+      arr[i] = arr[i].toLowerCase();
+    }else {
+      arr[i] = arr[i].toUpperCase();
+      
+    }
+    }
+    return arr.join('');
+  }
+  })
+</script>
+</html>

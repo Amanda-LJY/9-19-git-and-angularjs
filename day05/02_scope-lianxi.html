@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+  <script src='../libs/angular.min.js'></script>
+</head>
+<body ng-app='app' ng-init="golbal='全局都可以用'">
+    ng-init:{{golbal}}<br>
+    $rootScope.sex:{{sex}}
+  <div ng-controller='ctrl1' ng-init="hobby='游泳'">
+    ng-init:{{golbal}}<br>
+    $rootScope.sex:{{sex}}<br>
+    
+  </div>
+  <div ng-controller='ctrl2'>
+      ng-init:{{golbal}}<br>
+      $rootScope.sex:{{sex}}
+      {{hobby}}
+      
+  </div>
+  <div ng-controller="ctrl3">
+    {{num}}
+      <button ng-click = 'sex()'>切换性别</button>
+  </div>
+</body>
+<script>
+  var app = angular.module('app', []);
+  app.controller('ctrl1',['$scope','$rootScope',function($scope,$rootScope){
+      $rootScope.sex = '男';
+      $scope.hobby='睡觉';//如果init和scope定义的属性重复，遵从init定义的值
+  }])
+  app.controller('ctrl2',['$scope','$rootScope',function($scope,$rootScope){
+    
+  }])
+  app.controller('ctrl3',['$scope','$rootScope',function($scope,$rootScope){
+    $scope.num = 'true';
+    $scope.sex = function(){
+      $rootScope.sex == '女'?$rootScope.sex ='男':$rootScope.sex = '女';
+      $scope.num == 'true'?$scope.num = 'false':$scope.num = 'true';
+    }
+  }])
+</script>
+</html>
