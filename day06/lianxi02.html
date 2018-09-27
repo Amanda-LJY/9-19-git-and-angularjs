@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+  <script src='../libs/angular.min.js'></script>
+  <style>
+  
+  </style>
+</head>
+<body ng-app='app'>
+
+  <div ng-controller="ctrl">
+    <div>{{num}}</div>
+  </div>
+  <div ng-controller='ctrl2'>
+    <div>{{date|date:"yyyy-MM-dd HH:mm:ss"}}</div>
+    <button ng-click="toggle()">开始/结束</button>
+  </div>
+  <div ng-controller='ctrl3'>
+   
+    <button ng-click='send()'>显示学生信息</button>
+    <div>
+      <table cellpadding="10" cellspacing = '0' border='1px'>
+        <tr>
+          <td>学号</td><td>姓名</td><td>性别</td>
+        </tr>
+        <tr ng-repeat="student in results">
+          <td>{{student.id}}</td>
+          <td>{{student.name}}</td>
+          <td>{{student.sex=='M'?'男':'女'}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+<script>
+  // 1)定时生成一个随机数，将其显示在页面上
+  //     每隔一秒，生成一个随机1-100的整数，显示在页面上
+  var app = angular.module('app', []);
+  app.controller('ctrl',function($scope,$interval){
+    $scope.num = 0;
+    $interval(function(){
+      $scope.num = Math.floor(Math.random()*99+1);
+    },1000);
+  });
+  // 2)设置一个按钮，点击按钮显示当前时间，再次点击停止
+  app.controller('ctrl2',function($scope,$interval){
+    var id=0;//预先设置id
+    
+    $scope.toggle = function(){
+      //判断id是否有值
+    if(!id){//id没有值
+      id = $interval(function(){
+      $scope.date = new Date();
+     
+    },1000);
+    }else{
+        $interval.cancel(id);
+        id = 0;//重置id变量或者是null
+      }
+    }
+  });
+  app.controller('ctrl3',function($http,$scope){
+      $scope.send=function(){
+        // alert('很难进');
+        $http({
+          url:"./stu.php"
+        }).success(function(result){
+          console.log(result);
+          //将绑定的数据绑定到resuls
+          $scope.results = result;
+        })
+      }
+  })
+</script>
+</html> 

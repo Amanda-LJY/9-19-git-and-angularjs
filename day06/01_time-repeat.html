@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+  <script src='../libs/angular.min.js'></script>
+</head>
+<body ng-app='app'>
+  <div ng-controller="ctrl">
+    interval：{{a}}
+    <div>
+      <button ng-click="count()">点击开始</button>
+      <button ng-click="count2()">点击结束</button>
+      <div>{{time}}</div>
+    </div>
+  </div>
+</body>
+<script>
+  var app = angular.module('app', []);
+  app.controller("ctrl",function($scope,$interval,$filter){
+    var a =0;
+    $interval(function(){
+      $scope.a = a++;
+    },1000);
+    var date = $filter("date");
+    var id;//为什么id要在外面声明一个。在里面不加var，不就是全局变量了吗
+    $scope.count = function(){
+      $interval.cancel(id);
+     id= $interval(function(){
+       
+        $scope.time = date(new Date(),"yyyy-MM-dd HH:mm:ss");
+        
+
+      },1000)
+      console.log(id);
+    }
+    $scope.count2 = function(){
+      $interval.cancel(id);
+      console.log(id);
+    }
+  });
+</script>
+</html>

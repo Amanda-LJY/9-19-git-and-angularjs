@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+  <script src='../libs/angular.min.js'></script>
+</head>
+<body ng-app='app'>
+  <div ng-controller="ctrl">
+    <div><button ng-click="winer()">点击抽奖</button></div>
+  </div>
+</body>
+<script>
+  // 点击按钮,自动生成5个随机数字
+  //   每秒显示一个随机数字,总共显示5次,产生5个随机数
+  //   5个随机数产生后,显示抽奖完成,中奖号码有:
+  //     23,45,34,43,12
+  var app = angular.module('app', []);
+  app.controller("ctrl",['$scope','$interval',function($scope,$interval){
+    var num;
+    var i=0;
+    $scope.winer=function(){
+      var id=0;
+     id= $interval(function(){
+      num = parseInt(Math.random()*100);
+       i++;
+       console.log(num);
+      },1000);
+      console.log(i);
+     
+    }
+    console.log(num);
+    if(i==4){
+      $interval.cancel(id);
+    }
+
+   
+  }])
+</script>
+</html>

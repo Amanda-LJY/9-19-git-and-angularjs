@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+  <script src='../libs/angular.min.js'></script>
+  <script src="../libs/angular-route.js"></script>
+</head>
+<body ng-app='app'>
+  <div ng-controller="show">
+    <a href="#/show">显示所有人的基本信息</a>
+    <!-- 定义3个链接，锚点 -->
+    <a href="#/student/zhangsan/1101">学生1</a>
+    <a href="#/student/lisi/1102">学生2</a>
+    <a href="#/teacher/wangwu/001">学生3</a>
+    <div ng-view></div>
+</div>
+</body>
+<script>
+  var app = angular.module('app', ["ngRoute"]);
+  //配置路由
+  app.config(function($routeProvider){
+    $routeProvider.when("/",{
+      template:"<h1>这是首页</h1>"
+    }).when("/show",{
+      templateUrl:"./show.html",
+      controller:"show"
+    }).when("/:pro/:name/:id",{
+      templateUrl:"./infor.html",
+      controller:"infor"
+    })
+  
+  });
+  app.controller("show",["$scope","$http",function($scope,$http){
+    $scope.a=function(index){
+      // alert("1111");
+      //按照score的值进行排序
+     if($scope.order==-index){
+       $scope.order="-"+index;
+     }else{
+      $scope.order="+"+index;
+     }
+    }
+
+    //通过$http发送请求，获取数据
+    $http({
+      url:"./show.php"
+    }).success(function(result){
+    //绑定数据
+          // JSON.parse(result);
+      $scope.users = result;
+    });
+  }])
+ app.controller("infor",['$scope',"$routeParams",function($scope,$routeParams){
+   var name=$routeParams.name;
+   var id=$routeParams.id;
+   var pro=$routeParams.pro;
+   if(pro == "student"){
+     $scope.pro="学生";
+     $scope.name=name;
+     $scope.type = "学号";
+     $scope.id =id;
+   }else{
+    $scope.pro="老师";
+     $scope.name=name;
+     $scope.type = "工号";
+     $scope.id =id;
+   }
+ }])
+</script>
+</html>

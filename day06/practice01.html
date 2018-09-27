@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+  <script src='../libs/angular.min.js'></script>
+</head>
+<body ng-app='app'>
+  <div ng-controller='ctrl'>
+    <div>{{num}}</div>
+    <div><button ng--click="toggle()">点击显示时间</button></div>
+    <div>{{time}}</div>
+    <div><button ng-click="show()">点击显示学生信息</button></div>
+    <table cellpadding='10' cellspacing='0' border="1px">
+      <tr>
+        <td>学号</td>
+        <td>姓名</td>
+        <td>性别</td>
+      </tr>
+      <tr ng-repeat="stu in student">
+        <td>{{stu.id}}</td>
+        <td>{{stu.name}}</td>
+        <td>{{stu.sex}}</td>
+      </tr>
+    </table>
+  </div>
+</body>
+<script>
+  var app = angular.module('app', []);
+  app.controller("ctrl",function($scope,$interval,$filter,$http){
+    $interval(function(){
+      $scope.num = parseInt(Math.random()*100)+1;
+    },1000);
+    var date = $filter('date');
+    var id;
+    $scope.toggle = function(){
+      if(!id){
+        $interval.cancel(id);
+       id=$interval(function(){
+        
+         $scope.time = date(new Date(),"yyyy-MM-dd HH:mm:ss")
+       },1000)
+      }else{
+        $interval.cancel(id);
+        id = 0;
+      }
+      };
+   $scope.show = function(){
+    $http({
+      url:"./stu.php"
+    }).success(function(result){
+      $scope.student = result;
+    })
+  }
+  });
+</script>
+</html>

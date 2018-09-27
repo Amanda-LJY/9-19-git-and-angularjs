@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+  <script src='../libs/angular.min.js'></script>
+</head>
+<body ng-app='app'>
+  <div ng-controller="ctrl">
+    <div>timeout:{{show}}</div>
+    <div>interval:{{result}}</div>
+    <div>当期时间：{{time | date:"yyyy-MM-dd HH:mm:ss"}}</div>
+    <button ng-click='start()'>开始计时</button>
+    <div><button ng-click = 'stop()'>停止计时</button></div>
+  </div>
+</body>
+<script>
+  var app = angular.module('app', []);
+  app.controller('ctrl',function($scope,$timeout,$interval){
+    var a =0;
+    $interval(function(){
+      $scope.result = a++;
+    },1000);
+    var id =0;
+    $scope.start = function(){
+      //清除上一次清除的id
+      $interval.cancel(id);
+      //生成新的id
+      id= $interval(function(){
+      $scope.time= new Date();
+    },1000);
+    console.log(id);
+    };
+   
+    //绑定stop方法，停止上面的计时器
+    $scope.stop=function(){
+      console.log(id);
+      //clearInterval(id)该方法无效，
+      $interval.cancel(id);
+    }
+   
+    //$timeout是一个一次性定时函数
+    $timeout(function(){
+      alert('3秒到了');
+      $scope.show = "时间到了，数据显示";
+    },3000);
+   
+  })
+</script>
+</html>
