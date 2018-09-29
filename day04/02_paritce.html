@@ -16,9 +16,9 @@
 <body ng-app='app'>
   <div ng-controller='ctrl'>
     <!-- 1.设置3个多选框，默认选择第二个 -->
-    <input type="checkbox" name='hobby' value="1" ng-checked="likes=='2'">游戏
+    <input type="checkbox" name='hobby' value="1" ng-checked="likes=='1'">游戏
     <input type="checkbox" name='hobby' value="2" ng-checked="likes=='2'">电影
-    <input type="checkbox" name='hobby' value="3" ng-checked="likes=='2'">旅游
+    <input type="checkbox" name='hobby' value="3" ng-checked="likes=='3'">旅游
     <!-- 2.使用ng-src引用一张图片，路径通过模型层获取 -->
     <img ng-src="{{path}}" alt="">
     <!-- 3.使用ng-switch实现效果
