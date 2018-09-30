@@ -16,7 +16,7 @@ var server = http.createServer(function (req, res) {
       res.end(data);
     })
   }
-  if(req.url=="/tijiao" && req.method.toLowerCase=="post"){
+  if(req.url=="/tijiao" && req.method.toLowerCase()=="post"){
    //因为nodejs是单线程，非I/O阻塞，为了追求效率。数据是一小段一小段上传
     //这样就会产生两种状态：正在接受，数据接收完成
 
