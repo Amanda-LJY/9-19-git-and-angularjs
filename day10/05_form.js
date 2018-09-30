@@ -1,6 +1,6 @@
 var http = require('http');
 var fs = require("fs");
-
+var qs = require("querystring");
 var server = http.createServer(function (req, res) {
   if (req.url == '/favicon.ico') {
     return;
@@ -32,7 +32,10 @@ var server = http.createServer(function (req, res) {
     // end：表示接收完成的状态，当数据全部接受完毕之后，进入状态  
     req.addListener('end',function(){
       //进入接受完成状态
-      console.log(allData);
+      console.log(allData);//username=qwewqe&password=13214
+      //将字符串的参数，转换成字符串类型
+      var obj = qs.parse(allData);
+      console.log(obj);//{ username: 'qwewqe', password: '13214' }
       //返回响应
       res.end();
     })

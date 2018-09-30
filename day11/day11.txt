@@ -1,0 +1,47 @@
+1.使用formidable模块处理post请求
+  
+
+2.模板引擎
+ 前端模板：template
+  <%= 变量名 %>
+  <% for语句%>
+  <% while语句%>
+  <% if语句%>
+后台模板：ejs,jade(nidejs默认模板类型)
+  安装ejs
+  02_ejs.js
+  02_ejs_2.js
+
+3.Express框架
+基于nodejs的平台，用于快速、极简的web开发框架
+
+原生nodejs有如下三个问题：
+ 1)呈现静态页面不方便，需要单独处理http的要求
+ 2)路由处理代码不直观
+ 3)不能集中精力写业务，需要考虑其他的东西
+
+express的3个常用方法；
+ 1、静态文件伺服能力
+ 2、路由功能
+ 3、模板功能
+
+ 1)模板功能
+  03_express.js
+   app.get("/a",function(req,res){
+  res.end("处理了/a请求");
+  });
+  app.get("/b",function(req,res){
+  res.send("处理了/b请求");
+  });
+
+
+  express模板功能，需要设置视图模板引擎
+  因为nodejs默认的是模板引擎是jade
+  app.set("view engine","ejs");
+   
+   视图放在固定的文件夹view
+   后缀名为ejs
+
+  练习：使用express
+    模拟数据
+    data={stus:["jack","rose","mike",'jerry']}
